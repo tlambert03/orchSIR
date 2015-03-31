@@ -27,3 +27,4 @@ echo "Wavelength: "$WAVE
 
 # Create your own config files or edit 488config to change parameter setting. Or use command line options;
 $APP -c $CONFIG $INPUT $OUTPUT $OTF | tee $LOG
+
