@@ -3,12 +3,12 @@
 LD_LIBRARY_PATH=/usr/local/cuda/lib64
 export OMP_NUM_THREADS=64
 
-APP=/home/tjl10/CSR/build/cudaSirecon/cudaSireconDriver
+APP='/home/tjl10/CSR/build/cudaSirecon/cudaSireconDriver'
 
 # Edit the following two lines for your account and folder structure
-OTF_FOLDER='/home/tjl10/OTFs' 				# folder where OTF files live
+OTF_FOLDER='/home/tjl10/orchSIR/OTFs' 				# folder where OTF files live
 # OTF files must follow the naming convention [EMISSIONWAVE].otf
-CONFIG_FOLDER='/home/tjl10/SIconfig' 		# folder wher config files live
+CONFIG_FOLDER='/home/tjl10/orchSIR/SIconfig' 		# folder wher config files live
 # config files must follow the naming convention [EMISSIONWAVE]config
 
 INPUT=$1

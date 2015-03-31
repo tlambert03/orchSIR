@@ -2,6 +2,8 @@
 
 #change these to be appropriate for your account and folder sctructure:
 PRIISM_FOLDER='/home/tjl10/priism-4.4.1/'
+ORCH_SIR_FOLDER='/home/tjl10/orchSIR/'
+
 
 # this should point to the Priism_setup file in the priism folder in your home directory
 . $PRIISM_FOLDER/Priism_setup.sh
@@ -29,7 +31,7 @@ LOGFILE=${RAW_FILE/.dv/-job.log}
 #split file into wavelengths
 echo "splitting file into ${NUMWAVES} wavelengths"
 JOB1="$(basename $RAW_FILE)_SPLT"
-bsub -q priority -W 0:05 -J $JOB1 -R 'rusage[mem=2000]' -o $LOGFILE ./splitfile.sh $RAW_FILE;
+bsub -q priority -W 0:05 -J $JOB1 -R 'rusage[mem=2000]' -o $LOGFILE $ORCH_SIR_FOLDER/splitfile.sh $RAW_FILE;
 
 #reconstruct the wavelengths
 FILELIST=""
@@ -38,7 +40,7 @@ for w in $WAVES; do
     FNAME=$(basename $CPY)
     JOB2="${FNAME}_SIR"
     echo "sending jobname: "$JOB2
-    bsub -K -q priority -W 0:05 -R 'rusage[ngpus=1]' -w "done($JOB1)" -J $JOB2 -o $LOGFILE ./reconstruct.sh $CPY &
+    bsub -K -q priority -W 0:05 -R 'rusage[ngpus=1]' -w "done($JOB1)" -J $JOB2 -o $LOGFILE $ORCH_SIR_FOLDER/reconstruct.sh $CPY &
     FILELIST=${FILELIST}" ${CPY/.dv/-PROC.dv}"
 done
 FILELIST=${FILELIST:1}

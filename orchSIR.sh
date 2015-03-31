@@ -12,7 +12,7 @@ PROC=${FNAME/.dv/-PROC.dv}
 LOG=${FNAME/.dv/-job.log}
 FDIR=$(dirname $FILE)
 
-ssh $ORCHESTRA_USER@$HOST ". /opt/lsf/conf/profile.lsf; ./recon.sh $UPLOAD_DIR/$FNAME;"
+ssh $ORCHESTRA_USER@$HOST ". /opt/lsf/conf/profile.lsf; ~/orchSIR/recon.sh $UPLOAD_DIR/$FNAME;"
 
 wait
 
