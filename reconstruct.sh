@@ -1,4 +1,7 @@
 #!/bin/bash
+# this file simply starts Lin's program finding the appropriate OTF file and 
+# config file using the name of the input file...
+
 # Edit the following two lines where necessary
 LD_LIBRARY_PATH=/usr/local/cuda/lib64
 export OMP_NUM_THREADS=64
@@ -18,7 +21,6 @@ CONFIG=${CONFIG_FOLDER}/${WAVE}config 						# config folder
 OUTPUT=${INPUT/.dv/-PROC.dv} 									# file to output to
 OTF=${OTF_FOLDER}/${WAVE}.otf 								# OTF file
 LOG=${INPUT/.dv/-LOG.txt}										# log file
-
 
 echo "Input file: "$INPUT
 echo "Output file: "$OUTPUT

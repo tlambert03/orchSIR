@@ -1,3 +1,8 @@
+ #!/bin/bash
+
+ # this script simple accepts the input file and seperates it into 
+ # single-wavelength images, appending the wavelength to the file name
+
 RAW_FILE=$1
 
 waves() {
