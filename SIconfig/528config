@@ -1,0 +1,57 @@
+#change regularly
+nimm=1.516
+background=100
+wiener=0.001
+
+#change rarely
+#angle0=-0.7963
+k0angles=-0.804300,-1.8555,0.238800
+ls=0.2075
+
+#change almost never
+ndirs=3
+nphases=5
+na=1.42
+#seems to have to be 1.42? ... but 1.2000005 also works
+
+# increase in image dimensions (decrease in pixel size)
+#zoomfact=2
+#zzoom=1
+# pretty much has to be the defaults, no use in setting?
+
+# using rotationally averaged OTF
+otfRA=1
+# CRITICAL
+
+# dampen order-0 in final assembly
+dampenOrder0=1
+# Drastically reduces SA artifact
+# ????? how come? what else is it doing?
+
+#nordersout=0
+
+# artificially exploding the reciprocal-space distance
+# between orders by this factor
+# explodefact=1
+# very interesting, honeycomb accentuating (removing?)
+
+# do not filter the overlaping region between bands
+# usually used in trouble shooting
+# nofilteroverlaps=0
+
+
+#k0searchAll=0
+#equalizez=1
+
+#performs bleach correction
+#equalizet=1
+
+#do not suppress DC singularity in final assembly
+#(good idea for 2D/TIRF data)
+#nosuppress=1
+
+#do not use kz=0 plane of the 0th order
+#in the final assembly
+#nokz0=0
+
+#gammaApo=1

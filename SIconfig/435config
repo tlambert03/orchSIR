@@ -1,0 +1,19 @@
+#change regularly
+nimm=1.516
+background=100
+wiener=0.002
+
+#change rarely
+#angle0=-0.7963    
+k0angles=-0.83100,-1.8846,0.2130
+ls=0.192
+
+#change almost never
+ndirs=3       
+nphases=5           
+na=1.42 #seems to have to be 1.42? ... but 1.2000005 also works
+# using rotationally averaged OTF 
+otfRA=1  # CRITICAL
+
+# dampen order-0 in final assembly
+dampenOrder0=1
