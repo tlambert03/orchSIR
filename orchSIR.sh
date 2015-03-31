@@ -18,7 +18,7 @@ FDIR=$(dirname $FILE)
 # UPLOAD FILE TO ORCHESTRA #
 ############################
 
-scp $FILE $ORCHESTRA_USER@$HOST:$UPLOAD_DIR
+#scp $FILE $ORCHESTRA_USER@$HOST:$UPLOAD_DIR
 
 #############################
 # START REMOTE RECON SCRIPT #

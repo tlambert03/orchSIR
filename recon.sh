@@ -17,11 +17,13 @@ ORCH_SIR_FOLDER='/home/tjl10/orchSIR/'
 . /opt/intel/bin/compilervars.sh intel64
 
 
-numwaves() {
-    echo "$(echo | header $RAW_FILE | grep "Number of Wavelengths" | awk -F'    ' '{print $2}')"
+numwaves() { 
+    echo "$(echo | header $RAW_FILE | grep "Number of Wavelengths" | awk -F'    ' '{print $2}')" 
 }
 
-waves() { echo "$(echo | header $RAW_FILE | grep "Wavelengths (nm)" | awk -F'   ' '{print $2}')"}
+waves() { 
+    echo "$(echo | header $RAW_FILE | grep "Wavelengths (nm)" | awk -F'   ' '{print $2}')" 
+}
 
 RAW_FILE=$1 # the grabs the input file
 echo "processing ${RAW_FILE}"
@@ -79,6 +81,3 @@ for w in $WAVES; do
     LOG=${CPY/.dv/-LOG.txt}
     rm -f $LOG;
 done
-
-
-
