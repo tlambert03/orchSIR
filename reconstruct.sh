@@ -3,7 +3,7 @@
 LD_LIBRARY_PATH=/usr/local/cuda/lib64
 export OMP_NUM_THREADS=64
 
-APP=/home/tjl10/CUDA_SIMrecon/build/cudaSirecon/cudaSireconDriver
+APP=/home/tjl10/CSR/build/cudaSirecon/cudaSireconDriver
 
 # Edit the following two lines for your account and folder structure
 OTF_FOLDER='/home/tjl10/OTFs' 				# folder where OTF files live
