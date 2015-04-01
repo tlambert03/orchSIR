@@ -2,9 +2,18 @@
 # this file simply starts Lin's program finding the appropriate OTF file and
 # config file using the name of the input file...
 
-# Edit the following two lines where necessary
 LD_LIBRARY_PATH=/usr/local/cuda/lib64
 export OMP_NUM_THREADS=64
+
+PRIISM_FOLDER='/home/tjl10/priism-4.4.1/'
+
+# this should point to the Priism_setup file in the priism folder in your home directory
+. $PRIISM_FOLDER/Priism_setup.sh
+# this is required for using the priism command line arguments
+. /opt/intel/bin/compilervars.sh intel64
+
+# Edit the following two lines where necessary
+
 
 APP='/home/tjl10/CSR/build/cudaSirecon/cudaSireconDriver'
 
