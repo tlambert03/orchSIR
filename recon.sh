@@ -34,17 +34,15 @@ LOGFILE=${RAW_FILE/.dv/-job.log}
 echo "processing ${RAW_FILE}..."
 echo "Output will be: ${OUTPUT}"
 
-
-if [ numwaves > 1 ]; then
+if [ $NUMWAVES -gt 1 ]; then
 
     # MULTI-CHANNEL FILE #
-    echo "${NUMWAVES} wavelengths: ${WAVES}"
 
     ###############################
     # SPLIT FILE INTO WAVELENGTHS #
     ###############################
 
-    echo "splitting file into ${NUMWAVES} wavelengths"
+    echo "splitting file into ${NUMWAVES} wavelengths: ${WAVES}"
     JOB1="$(basename $RAW_FILE)_SPLT"
     bsub -q priority -W 0:05 -J $JOB1 -R 'rusage[mem=2000]' -o $LOGFILE $ORCH_SIR_FOLDER/splitfile.sh $RAW_FILE;
 
@@ -94,6 +92,11 @@ else
 
     FNAME=$(basename $RAW_FILE)
     echo "Reconstructing single channel image with wavelength: ${WAVES}"
-    bsub -q priority -W 0:05 -R 'rusage[ngpus=1]' -J "${FNAME}_SIR" -o $LOGFILE $ORCH_SIR_FOLDER/reconstruct.sh $RAW_FILE
+    bsub -K -q priority -W 0:05 -R 'rusage[ngpus=1]' -J "${FNAME}_SIR" -o $LOGFILE $ORCH_SIR_FOLDER/reconstruct.sh $RAW_FILE
 
+    wait
+    
+    # cleanup CUDA_SIMrecon log file
+    LOG=${RAW_FILE/.dv/-LOG.txt}
+    rm -f $LOG;
 fi
