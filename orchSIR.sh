@@ -18,7 +18,7 @@ FDIR=$(dirname $FILE)
 # UPLOAD FILE TO ORCHESTRA #
 ############################
 
-#scp $FILE $ORCHESTRA_USER@$HOST:$UPLOAD_DIR
+scp -c arcfour128 $FILE $ORCHESTRA_USER@$HOST:$UPLOAD_DIR
 
 #############################
 # START REMOTE RECON SCRIPT #
@@ -34,15 +34,15 @@ wait
 
 echo "downloading processed files..."
 
-scp $ORCHESTRA_USER@$HOST:$UPLOAD_DIR/$PROC $FDIR/$PROC
-scp $ORCHESTRA_USER@$HOST:$UPLOAD_DIR/$LOG $FDIR/$LOG
+scp -c arcfour128 $ORCHESTRA_USER@$HOST:$UPLOAD_DIR/\{$PROC,$LOG\} $FDIR
 
-echo "files downloaded... removing from orchestra..."
 
 #############################
 # CLEAN UP SERVER WHEN DONE #
 #############################
 
-ssh $ORCHESTRA_USER@$HOST "rm -f $UPLOAD_DIR/$FNAME; rm -f $UPLOAD_DIR/$PROC; rm -f $UPLOAD_DIR/$LOG;"
+echo "files downloaded... removing from orchestra..."
+
+ssh $ORCHESTRA_USER@$HOST "rm -f $UPLOAD_DIR/{$FNAME,$PROC,$LOG};"
 
 echo "done!"

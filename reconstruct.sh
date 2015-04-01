@@ -1,5 +1,5 @@
 #!/bin/bash
-# this file simply starts Lin's program finding the appropriate OTF file and 
+# this file simply starts Lin's program finding the appropriate OTF file and
 # config file using the name of the input file...
 
 # Edit the following two lines where necessary
@@ -16,11 +16,15 @@ CONFIG_FOLDER='/home/tjl10/orchSIR/SIconfig' 		# folder wher config files live
 
 INPUT=$1
 
-WAVE=${INPUT: -6:3}												# file to reconstruct
+waves() {
+    echo "$(echo | header $INPUT | grep "Wavelengths (nm)" | awk -F'   ' '{print $2}')"
+}
+
+WAVE=$(waves $INPUT)										# file to reconstruct
 CONFIG=${CONFIG_FOLDER}/${WAVE}config 						# config folder
-OUTPUT=${INPUT/.dv/-PROC.dv} 									# file to output to
+OUTPUT=${INPUT/.dv/-PROC.dv} 								# file to output to
 OTF=${OTF_FOLDER}/${WAVE}.otf 								# OTF file
-LOG=${INPUT/.dv/-LOG.txt}										# log file
+LOG=${INPUT/.dv/-LOG.txt}									# log file
 
 echo "Input file: "$INPUT
 echo "Output file: "$OUTPUT
