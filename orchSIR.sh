@@ -28,7 +28,12 @@ if [ $OTF != 0 ]; then scp -c arcfour128 $OTF $ORCHESTRA_USER@$HOST:$OTF_DIR; fi
 # START REMOTE RECON SCRIPT #
 #############################
 
-ssh $ORCHESTRA_USER@$HOST ". /opt/lsf/conf/profile.lsf; ~/orchSIR/recon.sh $UPLOAD_DIR/$FNAME $OTF_DIR/$OTF_NAME;"
+if [ $OTF = 0 ]; then 
+	ssh $ORCHESTRA_USER@$HOST ". /opt/lsf/conf/profile.lsf; ~/orchSIR/recon.sh $UPLOAD_DIR/$FNAME;"
+else
+	ssh $ORCHESTRA_USER@$HOST ". /opt/lsf/conf/profile.lsf; ~/orchSIR/recon.sh $UPLOAD_DIR/$FNAME $OTF_DIR/$OTF_NAME;"
+fi
+
 
 wait
 
