@@ -32,8 +32,10 @@ waves() {
 WAVE=$(waves $INPUT)										# file to reconstruct
 CONFIG=${CONFIG_FOLDER}/${WAVE}config 						# config folder
 OUTPUT=${INPUT/.dv/-PROC.dv} 								# file to output to
-OTF=${OTF_FOLDER}/${WAVE}.otf 								# OTF file
+DEFAULT_OTF=${OTF_FOLDER}/${WAVE}.otf 								# OTF file
 LOG=${INPUT/.dv/-LOG.txt}									# log file
+
+OTF=${2:-$DEFAULT_OTF}
 
 echo "Input file: "$INPUT
 echo "Output file: "$OUTPUT
