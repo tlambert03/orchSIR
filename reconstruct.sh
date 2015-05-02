@@ -36,13 +36,14 @@ OUTPUT=${INPUT/.dv/-PROC.dv} 								# file to output to
 DEFAULT_OTF=${OTF_FOLDER}/${WAVE}.otf 								# OTF file
 LOG=${INPUT/.dv/-LOG.txt}									# log file
 
-OTF=$2;
-if [ $OTF = 0 ]; then OTF=${DEFAULT_OTF}; fi
+OTF=${2:-0}
+if [ $OTF = 0 ]; then OTF=$DEFAULT_OTF; fi
 
 echo "Input file: "$INPUT
 echo "Output file: "$OUTPUT
 echo "OTF used: "$OTF
 echo "Wavelength: "$WAVE
+echo "second arg: "$2
 
 # Create your own config files or edit 488config to change parameter setting. Or use command line options;
 $APP -c $CONFIG $INPUT $OUTPUT $OTF | tee $LOG

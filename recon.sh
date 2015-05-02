@@ -34,7 +34,8 @@ LOGFILE=${RAW_FILE/.dv/-job.log}
 
 echo "processing ${RAW_FILE}..."
 echo "Output will be: ${OUTPUT}"
-
+if [ $OTF != 0 ]; then echo "OTF provided: ${OTF}"; fi
+    
 if [ $NUMWAVES -gt 1 ]; then
 
     # MULTI-CHANNEL FILE #
@@ -57,7 +58,7 @@ if [ $NUMWAVES -gt 1 ]; then
         FNAME=$(basename $CPY)
         JOB2="${FNAME}_SIR"
         echo "sending jobname: "$JOB2
-        bsub -K -q priority -W 0:03 -R 'rusage[ngpus=1]' -w "done($JOB1)" -J $JOB2 -o $LOGFILE $ORCH_SIR_FOLDER/reconstruct.sh $CPY $OTF &
+        bsub -K -q priority -W 0:03 -R 'rusage[ngpus=1]' -w "done($JOB1)" -J $JOB2 -o $LOGFILE ${ORCH_SIR_FOLDER}/reconstruct.sh $CPY $OTF &
         FILELIST=${FILELIST}" ${CPY/.dv/-PROC.dv}"
     done
     FILELIST=${FILELIST:1}
@@ -93,7 +94,7 @@ else
 
     FNAME=$(basename $RAW_FILE)
     echo "Reconstructing single channel image with wavelength: ${WAVES}"
-    bsub -K -q priority -W 0:05 -R 'rusage[ngpus=1]' -J "${FNAME}_SIR" -o $LOGFILE $ORCH_SIR_FOLDER/reconstruct.sh $RAW_FILE
+    bsub -K -q priority -W 0:03 -R 'rusage[ngpus=1]' -J "${FNAME}_SIR" -o $LOGFILE ${ORCH_SIR_FOLDER}/reconstruct.sh $RAW_FILE $OTF
 
     wait
     
