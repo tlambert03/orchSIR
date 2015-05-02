@@ -36,8 +36,8 @@ OUTPUT=${INPUT/.dv/-PROC.dv} 								# file to output to
 DEFAULT_OTF=${OTF_FOLDER}/${WAVE}.otf 								# OTF file
 LOG=${INPUT/.dv/-LOG.txt}									# log file
 
-OTF=${2:-$DEFAULT_OTF}
-if [ $OTF = 0 ]; then OTF=$DEFAULT_OTF; fi
+OTF=$2;
+if [ $OTF = 0 ]; then OTF=${DEFAULT_OTF}; fi
 
 echo "Input file: "$INPUT
 echo "Output file: "$OUTPUT
