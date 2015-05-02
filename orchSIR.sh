@@ -6,10 +6,13 @@
 
 # variables
 FILE=$1
+OTF=${2:-0}
 ORCHESTRA_USER='tjl10'
 HOST='orchestra.med.harvard.edu'
 UPLOAD_DIR='~/files'
 FNAME=$(basename $FILE)
+OTF_DIR='~/OTFs'
+OTF_NAME=$(basename $OTF)
 PROC=${FNAME/.dv/-PROC.dv}
 LOG=${FNAME/.dv/-job.log}
 FDIR=$(dirname $FILE)
@@ -19,12 +22,13 @@ FDIR=$(dirname $FILE)
 ############################
 
 scp -c arcfour128 $FILE $ORCHESTRA_USER@$HOST:$UPLOAD_DIR
+if [ $OTF != 0 ]; then scp -c arcfour128 $OTF $ORCHESTRA_USER@$HOST:$OTF_DIR; fi
 
 #############################
 # START REMOTE RECON SCRIPT #
 #############################
 
-ssh $ORCHESTRA_USER@$HOST ". /opt/lsf/conf/profile.lsf; ~/orchSIR/recon.sh $UPLOAD_DIR/$FNAME;"
+ssh $ORCHESTRA_USER@$HOST ". /opt/lsf/conf/profile.lsf; ~/orchSIR/recon.sh $UPLOAD_DIR/$FNAME $OTF_DIR/$OTF_NAME;"
 
 wait
 

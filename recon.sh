@@ -26,6 +26,7 @@ waves() {
 }
 
 RAW_FILE=$1 # the grabs the input file
+OTF=${2:-0}
 OUTPUT=${RAW_FILE/.dv/-PROC.dv}
 NUMWAVES=$(numwaves $RAW_FILE)
 WAVES=$(waves $RAW_FILE)
@@ -56,7 +57,7 @@ if [ $NUMWAVES -gt 1 ]; then
         FNAME=$(basename $CPY)
         JOB2="${FNAME}_SIR"
         echo "sending jobname: "$JOB2
-        bsub -K -q priority -W 0:05 -R 'rusage[ngpus=1]' -w "done($JOB1)" -J $JOB2 -o $LOGFILE $ORCH_SIR_FOLDER/reconstruct.sh $CPY &
+        bsub -K -q priority -W 0:03 -R 'rusage[ngpus=1]' -w "done($JOB1)" -J $JOB2 -o $LOGFILE $ORCH_SIR_FOLDER/reconstruct.sh $CPY $OTF &
         FILELIST=${FILELIST}" ${CPY/.dv/-PROC.dv}"
     done
     FILELIST=${FILELIST:1}
