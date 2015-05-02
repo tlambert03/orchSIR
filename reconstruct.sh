@@ -2,7 +2,7 @@
 # this file simply starts Lin's program finding the appropriate OTF file and
 # config file using the name of the input file...
 
-LD_LIBRARY_PATH=/usr/local/cuda/lib64
+export LD_LIBRARY_PATH=/opt/cuda-5.0/lib64:$LD_LIBRARY_PATH
 export OMP_NUM_THREADS=64
 
 PRIISM_FOLDER='/home/tjl10/priism-4.4.1/'
@@ -14,14 +14,15 @@ PRIISM_FOLDER='/home/tjl10/priism-4.4.1/'
 
 # Edit the following two lines where necessary
 
-
-APP='/home/tjl10/CSR/build/cudaSirecon/cudaSireconDriver'
+APP='/home/tjl10/CUDA_SIMrecon/build/cudaSirecon/cudaSireconDriver'
 
 # Edit the following two lines for your account and folder structure
 OTF_FOLDER='/home/tjl10/orchSIR/OTFs' 				# folder where OTF files live
 # OTF files must follow the naming convention [EMISSIONWAVE].otf
 CONFIG_FOLDER='/home/tjl10/orchSIR/SIconfig' 		# folder wher config files live
 # config files must follow the naming convention [EMISSIONWAVE]config
+
+#CORRECTION_FILE='/home/tjl10/orchSIR/cor/cam1cor.mrc' 	
 
 INPUT=$1
 
@@ -45,4 +46,4 @@ echo "Wavelength: "$WAVE
 
 # Create your own config files or edit 488config to change parameter setting. Or use command line options;
 $APP -c $CONFIG $INPUT $OUTPUT $OTF | tee $LOG
-
+# $APP -c $CONFIG $INPUT $OUTPUT $OTF --usecorr $CORRECTION_FILE | tee $LOG
