@@ -56,10 +56,10 @@ if [ $NUMWAVES -gt 1 ]; then
     for w in $WAVES; do
         CPY=${RAW_FILE/.dv/-$w.dv}
         FNAME=$(basename $CPY)
-        JOB2="${FNAME}_SIR"
+        #JOB2="${FNAME}_SIR"
         echo "sending jobname: "$JOB2
         for OTF in ${OTF_FOLDER}*.otf; do
-            bsub -K -q short -W 0:03 -R 'rusage[ngpus=1]' -w "done($JOB1)" -J $JOB2 -o $LOGFILE ${ORCH_SIR_FOLDER}/reconstruct.sh $CPY $OTF &
+            bsub -K -q short -W 0:03 -R 'rusage[ngpus=1]' -w "done($JOB1)" -o $LOGFILE ${ORCH_SIR_FOLDER}/reconstruct.sh $CPY $OTF &
         done
         FILELIST=${FILELIST}" ${CPY/.dv/-PROC.dv}"
     done
@@ -93,8 +93,10 @@ else
     # SINGLE-CHANNEL FILE #
 
     FNAME=$(basename $RAW_FILE)
-    echo "Reconstructing single channel image with wavelength: ${WAVES}"
-    bsub -K -q priority -W 0:03 -R 'rusage[ngpus=1]' -J "${FNAME}_SIR" -o $LOGFILE ${ORCH_SIR_FOLDER}/reconstruct.sh $RAW_FILE $OTF
+    echo "Reconstructing the crap out of image with wavelength: ${WAVES}"
+    for OTF in ${OTF_FOLDER}*.otf; do
+        bsub -K -q priority -W 0:01 -R 'rusage[ngpus=1]' -J "${FNAME}_SIR_$OTF" -o $LOGFILE ${ORCH_SIR_FOLDER}/reconstruct.sh $RAW_FILE $OTF &
+    done
 
     wait
 
