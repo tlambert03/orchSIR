@@ -21,6 +21,8 @@ FDIR=$(dirname $FILE)
 # UPLOAD FILE TO ORCHESTRA #
 ############################
 
+echo "uploading files to orchestra..."
+
 scp -c arcfour128 $FILE $ORCHESTRA_USER@$HOST:$UPLOAD_DIR
 if [ $OTF != 0 ]; then scp -c arcfour128 $OTF $ORCHESTRA_USER@$HOST:$OTF_DIR; fi
 
@@ -28,7 +30,9 @@ if [ $OTF != 0 ]; then scp -c arcfour128 $OTF $ORCHESTRA_USER@$HOST:$OTF_DIR; fi
 # START REMOTE RECON SCRIPT #
 #############################
 
-if [ $OTF = 0 ]; then 
+echo "running remote reconstruction script..."
+
+if [ $OTF = 0 ]; then
 	ssh $ORCHESTRA_USER@$HOST ". /opt/lsf/conf/profile.lsf; ~/orchSIR/recon.sh $UPLOAD_DIR/$FNAME;"
 else
 	ssh $ORCHESTRA_USER@$HOST ". /opt/lsf/conf/profile.lsf; ~/orchSIR/recon.sh $UPLOAD_DIR/$FNAME $OTF_DIR/$OTF_NAME;"
