@@ -32,31 +32,35 @@ waves() {
 
 WAVE=$(waves $INPUT)										# file to reconstruct
 CONFIG=${CONFIG_FOLDER}/${WAVE}config 						# config folder
-#OUTPUT=${INPUT/.dv/-PROC.dv} 								# file to output to
+OUTPUT=${INPUT/.dv/-PROC.dv} 								# file to output to
 DEFAULT_OTF=${OTF_FOLDER}/${WAVE}.otf 								# OTF file
 LOG=${INPUT/.dv/-LOG.txt}									# log file
 
 OTF=${2:-0}
 if [ $OTF = 0 ]; then OTF=$DEFAULT_OTF; fi
 
+
+# this section tags the output file with the OTF key
+# commented out for now, because it breaks the rest of the workflow
+
 #computed varibles
-DATA_DIR=${INPUT%/*}
-BASE_FILE=${INPUT##*/}
-OTF_NAME=${OTF##*/}
-OTF_DATE=$(date -r $OTF +%y%m%d)
-
-OIFS=$IFS;
-IFS="_";
-keyArray=(${OTF_NAME%.otf});
-OTF_WAVE=${keyArray[0]};
-OTF_OIL=${keyArray[2]};
-OTF_MEDIUM=${keyArray[3]};
-OTF_ANGLE=${keyArray[4]};
-OTF_BEAD=${keyArray[5]};
-IFS=$OIFS;
-OTF_KEY="d${OTF_DATE}w${OTF_WAVE}o${OTF_OIL: -2}${OTF_ANGLE}b${OTF_BEAD: -2}"
-
-OUTPUT="${DATA_DIR}/${BASE_FILE%.dv}_${OUTPUT_TAG}${OTF_KEY}_SIR.dv"
+# DATA_DIR=${INPUT%/*}
+# BASE_FILE=${INPUT##*/}
+# OTF_NAME=${OTF##*/}
+# OTF_DATE=$(date -r $OTF +%y%m%d)
+#
+# OIFS=$IFS;
+# IFS="_";
+# keyArray=(${OTF_NAME%.otf});
+# OTF_WAVE=${keyArray[0]};
+# OTF_OIL=${keyArray[2]};
+# OTF_MEDIUM=${keyArray[3]};
+# OTF_ANGLE=${keyArray[4]};
+# OTF_BEAD=${keyArray[5]};
+# IFS=$OIFS;
+# OTF_KEY="d${OTF_DATE}w${OTF_WAVE}o${OTF_OIL: -2}${OTF_ANGLE}b${OTF_BEAD: -2}"
+#
+# OUTPUT="${DATA_DIR}/${BASE_FILE%.dv}_${OUTPUT_TAG}${OTF_KEY}_SIR.dv"
 
 
 echo "Input file: "$INPUT
